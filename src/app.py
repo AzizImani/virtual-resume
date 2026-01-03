@@ -4,6 +4,7 @@ from openai import OpenAI
 
 from knowledge_source import KnowledgeSource
 from personal_chatbot import PersonalChatbot
+from src.tools import Tools
 from system_prompt import SystemPrompt
 
 
@@ -11,9 +12,8 @@ if __name__ == '__main__':
     load_dotenv(override=True)
 
     system_prompt = SystemPrompt().create_system_prompt()
-    client = OpenAI()
 
-    chatbot = PersonalChatbot(client, system_prompt)
+    chatbot = PersonalChatbot(OpenAI(), system_prompt, Tools())
 
     interface = gr.ChatInterface(
         fn=chatbot.chat,
